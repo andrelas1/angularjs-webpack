@@ -6,8 +6,7 @@ export default class NgRouteModule {
   initiliazeRoutes(routesConfig) {
     this.ngModule.config(function($stateProvider) {
       routesConfig.forEach(config => {
-        $stateProvider.state({
-          name: config.routePath,
+        $stateProvider.state(config.routePath ? config.routePath : "index", {
           url: config.routePath,
           template: config.template,
           controller: config.controller,
