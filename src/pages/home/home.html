@@ -1,4 +1,9 @@
 <div id="home">
   <h2>TESTE</h2>
   <h2>{{vm.title}}</h2>
+  <span hello-world="some-message"></span>
+  <my-dialog on-close="vm.doSomething(vm.title)">
+    heeeey this content is inside a dialog box, {{vm.title}}
+  </my-dialog>
+  {{msg}}
 </div>

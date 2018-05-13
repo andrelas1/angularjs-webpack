@@ -29,6 +29,7 @@ const NgBootstrap = new NgModule({
 const NgRoutes = new NgRouteModule(NgBootstrap.getModule());
 
 // THIS COULD BE BETTER
+// BUNCH OF BUGS -- HAVE TO FIX IT
 NgRoutes.initiliazeRoutes([
   {
     routePath: "",
