@@ -7,7 +7,8 @@ import NgModule from "./models/ng.module";
 import NgRouteModule from "./routes/routes.module.js";
 
 // Pages
-import HomeModule from "./pages/home/home.module";
+import HomePage from "./pages/home/home.module";
+import LoginPage from "./pages/login/login.module";
 
 // Modules
 import SharedModule from "./shared/shared.module";
@@ -16,7 +17,8 @@ const NgBootstrap = new NgModule({
   module: "app",
   dependencies: [
     uirouter,
-    HomeModule.getModuleName(),
+    HomePage.getModuleName(),
+    LoginPage.getModuleName(),
     SharedModule.getModuleName()
   ],
   directives: [],
@@ -32,9 +34,15 @@ const NgRoutes = new NgRouteModule(NgBootstrap.getModule());
 // BUNCH OF BUGS -- HAVE TO FIX IT
 NgRoutes.initiliazeRoutes([
   {
-    routePath: "",
+    routePath: "/home",
     template: require("./pages/home/home.html"),
     controller: "HomeController",
+    controllerAs: "vm"
+  },
+  {
+    routePath: "",
+    template: require("./pages/login/login.html"),
+    controller: "LoginController",
     controllerAs: "vm"
   }
 ]);
