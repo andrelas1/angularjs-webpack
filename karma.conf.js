@@ -12,6 +12,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      "./node_modules/angular/angular.js",
+      "./node_modules/angular-ui-router/release/angular-ui-router.js",
+      "./node_modules/angular-mocks/angular-mocks.js",
       { pattern: "src/*.spec.js", watched: false },
       { pattern: "src/**/*.spec.js", watched: false }
     ],
@@ -34,6 +37,18 @@ module.exports = function(config) {
             test: /\.js$/,
             loader: "babel-loader",
             exclude: /node_modules/
+          },
+          {
+            test: /\.s?[ac]ss$/,
+            use: [
+              { loader: "style-loader" },
+              { loader: "css-loader", options: { sourceMap: true } },
+              { loader: "sass-loader", options: { sourceMap: true } }
+            ]
+          },
+          {
+            test: /\.(html)$/,
+            loader: "html-loader"
           }
         ]
       },
@@ -46,7 +61,16 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["progress"],
+    reporters: ["progress", "spec"],
+    specReporter: {
+      maxLogLines: 8, // limit number of lines logged per test
+      suppressErrorSummary: false, // do not print error summary
+      suppressFailed: false, // do not print information about failed tests
+      suppressPassed: false, // do not print information about passed tests
+      suppressSkipped: false, // do not print information about skipped tests
+      showSpecTiming: true, // print the time elapsed for each spec
+      failFast: false // test would finish with error when a first fail occurs.
+    },
 
     // web server port
     port: 9876,
@@ -63,7 +87,25 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ["Chrome"],
+    browsers: ["PhantomJS"],
+    // customLaunchers: {
+    //   PhantomJS_custom: {
+    //     base: "PhantomJS",
+    //     options: {
+    //       windowName: "my-window",
+    //       settings: {
+    //         webSecurityEnabled: false
+    //       }
+    //     },
+    //     flags: ["--load-images=true"],
+    //     debug: true
+    //   }
+    // },
+
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
+      exitOnResourceError: true
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

@@ -8,19 +8,21 @@ export default class NgModule {
       controller,
       services,
       directives,
-      components
+      components,
+      routes
     } = moduleConfig;
     this.module = module;
     this.ngModule = angular.module(module, dependencies || []);
 
-    this.init({ controller, services, directives, components });
+    this.init({ controller, services, directives, components, routes });
   }
 
-  init({ controller, services, directives, components }) {
+  init({ controller, services, directives, components, routes }) {
     this.registerController(controller);
     this.registerServices(services);
     this.registerDirectives(directives);
     this.registerComponents(components);
+    this.registerRoutes(routes);
   }
 
   registerServices(services = []) {
@@ -47,6 +49,19 @@ export default class NgModule {
 
   registerDependency(dependencyName) {
     this.ngModule.requires.push(dependencyName);
+  }
+
+  registerRoutes(routes = []) {
+    this.ngModule.config(function($stateProvider) {
+      routes.forEach(config => {
+        $stateProvider.state(config.routeName, {
+          url: config.routePath,
+          template: config.template,
+          controller: config.controller,
+          controllerAs: "vm"
+        });
+      });
+    });
   }
 
   getModule() {

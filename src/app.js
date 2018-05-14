@@ -13,7 +13,7 @@ import LoginPage from "./pages/login/login.module";
 // Modules
 import SharedModule from "./shared/shared.module";
 
-const NgBootstrap = new NgModule({
+const AppModule = new NgModule({
   module: "app",
   dependencies: [
     uirouter,
@@ -28,23 +28,23 @@ const NgBootstrap = new NgModule({
 });
 
 // -- CREATING AND REGISTERING ROUTES
-const NgRoutes = new NgRouteModule(NgBootstrap.getModule());
+// const NgRoutes = new NgRouteModule(AppModule.getModule());
 
 // THIS COULD BE BETTER
-// BUNCH OF BUGS -- HAVE TO FIX IT
-NgRoutes.initiliazeRoutes([
-  {
-    routePath: "/home",
-    template: require("./pages/home/home.html"),
-    controller: "HomeController",
-    controllerAs: "vm"
-  },
-  {
-    routePath: "",
-    template: require("./pages/login/login.html"),
-    controller: "LoginController",
-    controllerAs: "vm"
-  }
-]);
+// ROUTES CAN BE REGISTERED BY MODULES. FOR INSTANCE, THE HOME MODULE CAN HAVE ITS ROUTES.
+// NgRoutes.initiliazeRoutes([
+//   {
+//     routePath: "/home",
+//     template: require("./pages/home/home.html"),
+//     controller: "HomeController",
+//     controllerAs: "vm"
+//   },
+//   {
+//     routePath: "",
+//     template: require("./pages/login/login.html"),
+//     controller: "LoginController",
+//     controllerAs: "vm"
+//   }
+// ]);
 
-export default { NgBootstrap, NgRoutes };
+export default AppModule;
