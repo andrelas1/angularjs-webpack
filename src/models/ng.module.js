@@ -2,6 +2,10 @@ import angular from "angular";
 
 export default class NgModule {
   constructor(moduleConfig) {
+    this.services = [];
+    this.routes = [];
+    this.components = [];
+    this.directives = [];
     const {
       module,
       dependencies,
@@ -27,18 +31,21 @@ export default class NgModule {
 
   registerServices(services = []) {
     services.forEach(service => {
+      this.services.push(service.name);
       this.ngModule.factory(service.name, service);
     });
   }
 
   registerDirectives(directives = []) {
     directives.forEach(directive => {
+      this.directives.push(directive);
       this.ngModule.directive(`${directive.name}`, directive);
     });
   }
 
   registerComponents(components = []) {
     components.forEach(component => {
+      this.components.push(component);
       this.ngModule.component(`${component.name}`, component);
     });
   }

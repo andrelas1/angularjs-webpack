@@ -1,11 +1,12 @@
 export default class LoginController {
-  constructor() {
+  constructor(usersService) {
     this.username = "";
     this.password = "";
+    this.usersService = usersService;
   }
 
   $onInit() {
-    console.log("initializing login controller");
+    console.log(this.usersService.getUser());
   }
 
   isUsernameValid(username) {
